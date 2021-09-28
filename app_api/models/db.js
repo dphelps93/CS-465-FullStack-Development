@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
-const dbURI = 'mongodb://localhost/travlr';  
+const dbURI = 'mongodb://localhost/travlr';
+const readLine = require('readline');
 
-mongoose.connect(dbURI, {useNewUrlParser: true});
+mongoose.set('useUnifiedTopology', true);
+
+const connect = () => {
+    setTimeout(() => mongoose.connect(dbURI, {
+      useNewUrlParser : true,
+      useCreateIndex: true
+    }), 1000);
+}
 
 mongoose.connection.on('connected', () => {                 
   console.log(`Mongoose connected to ${dbURI}`);            
@@ -11,13 +19,24 @@ mongoose.connection.on('error', err => {
 });                                                         
 mongoose.connection.on('disconnected', () => {              
   console.log('Mongoose disconnected');                     
-});                                                         
+});
+
+if (process.platform === 'win32'){
+  const rl = readLine.createInterface ({
+    input: process.stdin,
+    output: process.stdout
+  });
+  rl.on ('SIGINT', () => {
+    process.emit ("SIGINT");
+  });
+}
+
 const gracefulShutdown = (msg, callback) => {               
   mongoose.connection.close( () => {                        
     console.log(`Mongoose disconnected through ${msg}`);    
     callback();                                             
   });                                                       
-};                                                          
+}; 
 // For nodemon restarts                                     
 process.once('SIGUSR2', () => {                             
   gracefulShutdown('nodemon restart', () => {               
@@ -35,6 +54,8 @@ process.on('SIGTERM', () => {
   gracefulShutdown('Heroku app shutdown', () => {           
     process.exit(0);                                        
   });                                                       
-});                                                         
+}); 
+
+connect();
 
 require('./travlr');
