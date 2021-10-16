@@ -46,6 +46,7 @@ const tripsFindCode = async (req, res) => {
 };
 
 const tripsAddTrip = async (req, res) => {
+    console.log(req.body);
     getUser(req, res,
         (req, res) => {
             Trip
@@ -75,6 +76,7 @@ const tripsAddTrip = async (req, res) => {
 }
 
 const tripsUpdateTrip = async (req, res) => {
+    console.log(req.body);
     getUser(req, res,
         (req, res) => {
             Trip

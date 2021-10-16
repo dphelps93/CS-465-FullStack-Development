@@ -1,7 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { CONTENT_QUERIES } from '@angular/core/src/render3/interfaces/view';
 import { Http } from '@angular/http';
-
 import { User } from '../models/user';
 import { AuthResponse } from '../models/authresponse';
 import { BROWSER_STORAGE } from '../storage';
@@ -13,7 +11,7 @@ export class TripDataService {
   constructor(
     private http: Http,
     @Inject(BROWSER_STORAGE) private storage: Storage
-  ) { }
+) { }
 
   private apiBaseUrl = 'http://localhost:3000/api/';
   private tripUrl = `${this.apiBaseUrl}trips/`;

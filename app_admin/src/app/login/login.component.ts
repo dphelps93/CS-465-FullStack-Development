@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) { }
-  ngOnInit() { }
+  ngOnInit() {}
   public onLoginSubmit(): void {
     this.formError = '';
     if (!this.credentials.email || !this.credentials.password) {

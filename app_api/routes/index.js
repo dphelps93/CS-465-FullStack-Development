@@ -18,7 +18,7 @@ router
     .post(authController.register);
 
 router
-    .route('/trip')
+    .route('/trips')
     .get(tripsController.tripsList)
     .post(auth, tripsController.tripsAddTrip);
 
