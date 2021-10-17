@@ -25,12 +25,12 @@ export class TripDataService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${this.storage.getItem("travlr-token")}`,
+        'Authorization': "Bearer " + `${this.storage.getItem("travlr-token")}`,
       }),
     };
 
     return this.http
-      .post(this.tripUrl, formData)
+      .post(this.tripUrl, formData, httpOptions)
       .toPromise()
       .then(response => response as Trip[])
       .catch(this.handleError);
@@ -60,12 +60,12 @@ export class TripDataService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${this.storage.getItem("travlr-token")}`,
+        'Authorization': "Bearer " + `${this.storage.getItem("travlr-token")}`,
       }),
     };
 
     return this.http
-      .put(this.tripUrl + formData.code, formData)
+      .put(this.tripUrl + formData.code, formData, httpOptions)
       .toPromise()
       .then(response => response as Trip[])
       .catch(this.handleError);
@@ -75,14 +75,14 @@ export class TripDataService {
     console.log('Inside TripDataService#deleteTrip');
     console.log(formData);
 
-    const httpOptions = {
+   const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.storage.getItem('travlr-token')}`
-      })
+        'Authorization': "Bearer " + `${this.storage.getItem("travlr-token")}`,
+      }),
     };
 
     return this.http
-      .delete(this.tripUrl + formData.code)
+      .delete(this.tripUrl + formData.code, httpOptions)
       .toPromise()
       .then(response => response as Trip[])
       .catch(this.handleError);
